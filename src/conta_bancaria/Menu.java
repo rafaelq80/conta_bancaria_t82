@@ -15,6 +15,8 @@ public class Menu {
 		
 		// Criar (instanciar) um Objeto da Classe Conta
 		Conta c1 = new Conta(1, 123, 1, "Aylla", 500000);
+		
+		// Visualizar os dados do Objeto
 		c1.visualizar();
 		
 		// Sacar
