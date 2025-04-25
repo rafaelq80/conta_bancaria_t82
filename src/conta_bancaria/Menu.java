@@ -13,12 +13,15 @@ public class Menu {
 
 		int opcao;
 		
+		// Criar (instanciar) um Objeto da Classe Conta
 		Conta c1 = new Conta(1, 123, 1, "Aylla", 500000);
 		c1.visualizar();
 		
+		// Sacar
 		c1.sacar(100);
 		c1.visualizar();
 
+		// Depositar
 		c1.depositar(1000);
 		c1.visualizar();
 		
