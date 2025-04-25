@@ -3,6 +3,7 @@ package conta_bancaria;
 import java.io.IOException;
 import java.util.Scanner;
 
+import conta_bancaria.model.Conta;
 import conta_bancaria.util.Cores;
 
 public class Menu {
@@ -11,7 +12,20 @@ public class Menu {
 		Scanner leia = new Scanner(System.in);
 
 		int opcao;
+		
+		Conta c1 = new Conta(1, 123, 1, "Aylla", 500000);
+		c1.visualizar();
+		
+		c1.sacar(100);
+		c1.visualizar();
 
+		c1.depositar(1000);
+		c1.visualizar();
+		
+		// Alterar a propriedade titular
+		c1.setTitular("Aylla Scaglia");
+		c1.visualizar();
+		
 		while (true) {
 
 			System.out.println(Cores.TEXT_YELLOW + Cores.ANSI_BLACK_BACKGROUND
