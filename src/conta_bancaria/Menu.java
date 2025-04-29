@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import conta_bancaria.model.Conta;
+import conta_bancaria.model.ContaCorrente;
 import conta_bancaria.util.Cores;
 
 public class Menu {
@@ -28,6 +29,16 @@ public class Menu {
 		// Alterar a propriedade titular
 		c1.setTitular("Aylla Scaglia");
 		c1.visualizar();
+		
+		// Instanciando um Objeto da Classe Conta Corrente
+		ContaCorrente cc1 = new ContaCorrente(2, 456, 1, "Renata Negrini", 600000, 60000);
+		cc1.visualizar();
+		
+		cc1.sacar(659000);
+		cc1.visualizar();
+		
+		cc1.depositar(50000);
+		cc1.visualizar();
 		
 		while (true) {
 
