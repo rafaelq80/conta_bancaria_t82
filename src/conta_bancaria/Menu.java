@@ -3,25 +3,29 @@ package conta_bancaria;
 import java.io.IOException;
 import java.util.Scanner;
 
+import conta_bancaria.controller.ContaController;
 import conta_bancaria.model.ContaCorrente;
+import conta_bancaria.model.ContaPoupanca;
 import conta_bancaria.util.Cores;
 
 public class Menu {
 	public static void main(String[] args) {
 
 		Scanner leia = new Scanner(System.in);
+		
+		ContaController contas = new ContaController();
 
-		int opcao;
-				
-		// Instanciando um Objeto da Classe Conta Corrente
-		ContaCorrente cc1 = new ContaCorrente(2, 456, 1, "Renata Negrini", 600000, 60000);
-		cc1.visualizar();
+		int opcao, numero, agencia, tipo, aniversario;
+		String titular;
+		float saldo, limite;
 		
-		cc1.sacar(659000);
-		cc1.visualizar();
+		// Dados para teste
 		
-		cc1.depositar(50000);
-		cc1.visualizar();
+		ContaCorrente cc1 = new ContaCorrente(contas.gerarNumero(), 123, 1, "João da Silva", 1000.00f, 100.00f);
+		contas.cadastrar(cc1);
+		
+		ContaPoupanca cp1 = new ContaPoupanca(contas.gerarNumero(), 123, 2, "Maria da Silva", 1000.00f, 12);
+		contas.cadastrar(cp1);
 		
 		while (true) {
 
@@ -59,16 +63,47 @@ public class Menu {
 			case 1:
 				System.out.println(Cores.TEXT_WHITE + "Criar Conta\n\n");
 
+				System.out.println("Digite o número da Agência:");
+				agencia = leia.nextInt();
+				
+				System.out.println("Digite o nome do Titular:");
+				leia.skip("\\R");
+				titular = leia.nextLine();
+				
+				System.out.println("Digite o tipo da conta (1 - CC | 2 - CP:");
+				tipo = leia.nextInt();
+				
+				System.out.println("Digite o Saldo inicial da conta:");
+				saldo = leia.nextFloat();
+				
+				switch(tipo) {
+					case 1 ->{
+								System.out.println("Digite o limite da conta:");
+								limite = leia.nextFloat();
+								contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
+						}
+					case 2 ->{
+								System.out.println("Digite o dia do aniversário da conta:");
+								aniversario = leia.nextInt();
+								contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
+						}
+				}
+				
 				keyPress();
 				break;
 			case 2:
 				System.out.println(Cores.TEXT_WHITE + "Listar todas as Contas\n\n");
-
+				contas.listarTodas();
 				keyPress();
 				break;
 			case 3:
 				System.out.println(Cores.TEXT_WHITE + "Consultar dados da Conta - por número\n\n");
 
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+				
+				contas.procurarPorNumero(numero);
+				
 				keyPress();
 				break;
 			case 4:
@@ -113,17 +148,23 @@ public class Menu {
 	}
 
 	public static void keyPress() {
-
-		try {
-
-			System.out.println(Cores.TEXT_RESET + "\n\nPressione Enter para Continuar...");
-			System.in.read();
-
-		} catch (IOException e) {
-
-			System.err.println("Ocorreu um erro ao tentar ler o teclado");
-
-		}
+	    try {
+	        System.out.println(Cores.TEXT_RESET + "\n\nPressione Enter para Continuar...");
+	        
+	        // Lê apenas a tecla Enter e ignora outras teclas
+	        int input;
+	        while ((input = System.in.read()) != '\n') {
+	            // Ignora qualquer outra tecla diferente do Enter
+	            if (input == -1) {
+	                throw new IOException("Entrada encerrada inesperadamente");
+	            }
+	        }
+	        
+	    } catch (IOException e) {
+	        System.err.println("Erro de entrada/saída: " + e.getMessage());
+	    } catch (Exception e) {
+	        System.err.println("Ocorreu um erro ao processar a entrada: " + e.getMessage());
+	    }
 	}
 
 }
