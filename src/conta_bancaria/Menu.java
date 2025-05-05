@@ -1,9 +1,11 @@
 package conta_bancaria;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Scanner;
 
 import conta_bancaria.controller.ContaController;
+import conta_bancaria.model.Conta;
 import conta_bancaria.model.ContaCorrente;
 import conta_bancaria.model.ContaPoupanca;
 import conta_bancaria.util.Cores;
@@ -109,11 +111,56 @@ public class Menu {
 			case 4:
 				System.out.println(Cores.TEXT_WHITE + "Atualizar dados da Conta\n\n");
 
+				// Informe o numero da conta
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+				
+				// Checar se a conta existe
+				Optional<Conta> conta = contas.buscarNaCollection(numero);
+				
+				// Existe?
+				if(conta.isPresent()) {
+					
+					// Atualizar o dados
+					System.out.println("Digite o número da Agência:");
+					agencia = leia.nextInt();
+					
+					System.out.println("Digite o nome do Titular:");
+					leia.skip("\\R");
+					titular = leia.nextLine();
+					
+					// Recuperar o tipo da  conta
+					tipo = conta.get().getTipo();
+					
+					System.out.println("Digite o novo Saldo da conta:");
+					saldo = leia.nextFloat();
+					
+					// Identificar o tipo
+					switch(tipo) {
+						case 1 ->{ // Se for Conta Corrente
+									System.out.println("Digite o limite da conta:");
+									limite = leia.nextFloat();
+									contas.atualizar(new ContaCorrente(numero, agencia, tipo, titular, saldo, limite));
+							}
+						case 2 ->{  // Se for Conta Poupança
+									System.out.println("Digite o dia do aniversário da conta:");
+									aniversario = leia.nextInt();
+									contas.atualizar(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
+							}
+					}
+				}else // Caso não exista a conta
+					System.out.printf("\n A conta número %d não existe!", numero);
+				
 				keyPress();
 				break;
 			case 5:
 				System.out.println(Cores.TEXT_WHITE + "Apagar a Conta\n\n");
 
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+				
+				contas.deletar(numero);
+				
 				keyPress();
 				break;
 			case 6:
