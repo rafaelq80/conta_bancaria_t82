@@ -14,7 +14,11 @@
   <img src="https://img.shields.io/github/last-commit/rafaelq80/aulas_java_t82?style=flat-square" />
   <img src="https://img.shields.io/github/issues/rafaelq80/aulas_java_t82?style=flat-square" />
   <img src="https://img.shields.io/github/issues-pr/rafaelq80/aulas_java_t82?style=flat-square" />
+  <img src="https://img.shields.io/badge/status-conclu%C3%ADdo-brightgreen" alt="Status: Concluído">
+
+
 </div>
+
 
 ------
 
@@ -76,31 +80,31 @@ class Conta {
   - tipo: int
   - titular: String
   - saldo: float
-  + get numero() int
-  + get agencia() int
-  + get tipo() int
-  + get titular() String
-  + get saldo() float
-  + set numero(numero: int) void
-  + set agencia(agencia: int) void
-  + set tipo(tipo: int) void
-  + set titular(titular: String) void
-  + set saldo(saldo: float) void
+  + getNumero() int
+  + getAgencia() int
+  + getTipo() int
+  + getTitular() String
+  + getSaldo() float
+  + setNumero(numero: int) void
+  + setAgencia(agencia: int) void
+  + setTipo(tipo: int) void
+  + setTitular(titular: String) void
+  + setSaldo(saldo: float) void
   + sacar(valor: float) boolean
   + depositar(valor: float) void
   + visualizar() void
 }
 class ContaCorrente {
   - limite: float
-  + get limite() float
-  + set limite(limite: float) void
+  + getLimite() float
+  + setLimite(limite: float) void
   + sacar(valor: float) boolean
   + visualizar() void
 }
 class ContaPoupanca {
   - aniversario: int
-  + get aniversario() int
-  + set aniversario(aniversario: int) void
+  + getAniversario() int
+  + setAniversario(aniversario: int) void
   + visualizar() void
 }
 ContaCorrente --> Conta
